@@ -7,6 +7,8 @@ public class Contributeur extends Cotisant{
   public Contributeur(String nom, int somme){
     super(nom);
     // a completer
+    if(somme>=0) solde=somme;
+    else throw new RuntimeException("negative number !!");
   }
   
   public int solde(){
@@ -18,6 +20,15 @@ public class Contributeur extends Cotisant{
   }
 	public void debit(int somme) throws SoldeDebiteurException{
 	  // a completer
+	  if(solde<somme)
+	  {
+	      throw new SoldeDebiteurException() ;
+	     }
+	    else if(somme<0)
+	    {
+	        throw new RuntimeException("negative number!!");
+	           } 
+	          else {this.solde-=somme;}
 	}
 	
 	/**
@@ -25,13 +36,15 @@ public class Contributeur extends Cotisant{
 	 */
   public  void credit(int somme){
 	  // a completer
+	  if (somme < 0 )   throw  new  RuntimeException ( " negative number !!! " );
+          else solde += somme;
 	}
 	
 	/**
 	 * throws RuntimeException new RuntimeException("nombre négatif !!!");
 	 */
   public void affecterSolde(int somme){
-    // if(somme <0) throw new RuntimeException("nombre négatif !!!");
+    if(somme <0) throw new RuntimeException("nombre négatif !!!");
     try{
       debit(solde()); credit(somme);// mode élégant ... 
     }catch(SoldeDebiteurException sde){ 
